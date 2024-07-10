@@ -27,7 +27,7 @@ class ReportController extends Controller
             $startDate = Carbon::parse($request->from_date)->startOfDay();
             $endDate = Carbon::parse($request->to_date)->endOfDay();
 
-            $query = Package::select(['id', 'title', 'slug', 'view_count','journey_type', 'created_at'])
+            $query = Package::query()->select(['id', 'title', 'slug', 'view_count','journey_type', 'created_at'])
                 ->withAvgRating()
                 ->withCount(['inquiries'])
                 ->whereBetween('created_at', [$startDate, $endDate]);

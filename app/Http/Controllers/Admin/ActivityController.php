@@ -21,7 +21,7 @@ class ActivityController extends Controller
         $this->authorize('access-activity-page');
 
         if ($request->ajax()) {
-            $data = Activity::select(['id', 'title', 'slug', 'is_exclusive', 'status'])->latest()->get();
+            $data = Activity::query()->select(['id', 'title', 'slug', 'is_exclusive', 'status'])->latest()->get();
 
             $config = [
                 'additionalColumns' => [
@@ -31,12 +31,12 @@ class ActivityController extends Controller
                 ],
                 'disabledButtons' => [],
                 'model' => 'Activity',
-                'rawColumns' => ['is_exclusive'],
+                'rawColumns' => ['is_exclusive', 'status', 'action'],
                 'sortable' => false,
                 'routeClass' => null,
             ];
 
-            return $this->getDataTable($request, $data, $config)->make(true);
+            return $this->getDataTable($request, $data, $config);
         }
 
         return view('admin.activity.index', [

@@ -23,31 +23,33 @@ class DestinationController extends Controller
 {
     use StatusTrait, DatatableTrait;
 
-    public function index(Request $request)
-    {
-        if ($request->ajax()) {
-            $data = Destination::select(['id', 'title', 'slug', 'destination_category_id', 'status'])
-                ->with('destinationCategory:id,title')
-                ->latest()->get();
-            $config = [
-                'additionalColumns' => [
-                    'destination_category' => function ($row) {
-                        return $row->destinationCategory->title;
-                    },
-                ],
-                'disabledButtons' => [],
-                'model' => 'Destination',
-                'rawColumns' => ['destination_category'],
-                'sortable' => false,
-                'routeClass' => null,
-            ];
-            return $this->getDataTable($request, $data, $config)->make(true);
-        }
-        return view('admin.destination.index', [
-            'columns' => ['title', 'slug', 'destination_category', 'status'],
-        ]);
+   public function index(Request $request)
+{
+    if ($request->ajax()) {
+        $query = Destination::query()        // this is working because it has query() and other does not work because those doesnot have query()
+            ->select(['id', 'title', 'slug', 'destination_category_id', 'status'])
+            ->with('destinationCategory:id,title');
+
+        $config = [
+            'additionalColumns' => [
+                'destination_category' => function ($row) {
+                    return $row->destinationCategory->title;
+                },
+            ],
+            'disabledButtons' => [],
+            'model' => 'Destination',
+            'rawColumns' => ['destination_category'],
+            'sortable' => false,
+            'routeClass' => null,
+        ];
+
+        return $this->getDataTable($request, $query, $config)->make(true);
     }
 
+    return view('admin.destination.index', [
+        'columns' => ['title', 'slug', 'destination_category', 'status'],
+    ]);
+}
     public function create()
     {
         $this->authorize('add-destination');

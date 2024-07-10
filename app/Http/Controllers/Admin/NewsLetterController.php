@@ -18,7 +18,7 @@ class NewsLetterController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = NewsLetter::select(['id', 'email'])->latest()->get();
+            $data = NewsLetter::query()->select(['id', 'email'])->latest();
 
             $config = [
                 'additionalColumns' => [],

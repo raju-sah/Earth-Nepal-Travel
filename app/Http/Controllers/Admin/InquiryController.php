@@ -21,7 +21,7 @@ class InquiryController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Inquiry::select('*')->latest();
+            $data = Inquiry::query()->select('*')->latest();
 
             $config = [
                 'additionalColumns' => [
@@ -38,7 +38,7 @@ class InquiryController extends Controller
                 ],
                 'disabledButtons' => ['status', 'edit'],
                 'model' => 'Inquiry',
-                'rawColumns' => ['status'],
+                'rawColumns' => [],
                 'sortable' => false,
                 'routeClass' => null,
             ];

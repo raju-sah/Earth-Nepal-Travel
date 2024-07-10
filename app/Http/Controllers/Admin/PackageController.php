@@ -33,15 +33,13 @@ class PackageController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Package::query()->select(['id', 'title', 'slug', 'journey_type', 'status'])->latest();
-
+            $query = Package::query()->select(['id', 'title', 'slug', 'journey_type', 'status'])->latest();   // this is working because it has query() and other does not work because those doesnot have query()
 
             if ($request->get('package_type')) {
                 $query->where('journey_type', $request->package_type);
             }
 
             $config = [
-
                 'additionalColumns' => [
                     'journey_type' => function ($row) {
                         $journeyType = $row->journey_type ? $row->journey_type : 'N/A';
@@ -52,7 +50,7 @@ class PackageController extends Controller
 
                 'disabledButtons' => [],
                 'model' => 'Package',
-                'rawColumns' => ['destination_category'],
+                'rawColumns' => [],
                 'sortable' => false,
                 'routeClass' => null,
             ];

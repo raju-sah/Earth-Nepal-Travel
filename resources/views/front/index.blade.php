@@ -8,7 +8,7 @@
             <h1>“EXPLORE, DREAM, <span>WANDER</span>”</h1>
             <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit</strong>
         </div>
-        <form id="package_search_form" action="{{ route('front.search') }}" method="GET" role="form">
+        <form id="package_search_form" method="GET" role="form">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <ul class="navbar-nav" data-smartmenus-id="171334240746038">
                     <div class="select_dropdown">

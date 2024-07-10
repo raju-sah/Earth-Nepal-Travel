@@ -22,7 +22,7 @@ class DestinationCategoryController extends Controller
         $this->authorize('access-destination-category-page');
 
         if ($request->ajax()) {
-            $data = DestinationCategory::select(['id', 'title', 'slug', 'status'])->latest()->get();
+            $data = DestinationCategory::query()->select(['id', 'title', 'slug', 'status'])->latest();
 
             $config = [
                 'additionalColumns' => [],
